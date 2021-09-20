@@ -22,7 +22,7 @@ app.set('port',port);
 //llamado a las rutas 
 usuarios(app); 
 
-server.listen(3000,'192.168.56.1'  || 'localhost', () => { 
+server.listen(3000,'192.168.1.24'  || 'localhost', () => { 
     console.log('Aplicacion de nodejs', process.pid, 'en el puerto', port, 'iniciado');
 });
 

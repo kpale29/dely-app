@@ -16,7 +16,7 @@ Usuario.create = async (usuario) => {
     const sql = `INSERT INTO USUARIOS(correo, nombre,apellido,telefono,imagen,password,creado,modificado) values ('${usuario.correo}',
     '${usuario.nombre}',
     '${usuario.apellido}',
-    '${usuario.telefono}',
+    ${usuario.telefono},
     '${usuario.imagen}',
     '${usuario.password}',
     NOW(),
