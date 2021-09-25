@@ -8,13 +8,13 @@ class ResponseApi {
 
   String? message;
   String? error;
-  bool? succes;
+  late bool succes;
   dynamic? data;
 
   ResponseApi({
     this.message,
     this.error,
-    this.succes,
+    required this.succes,
   });
 
   ResponseApi.fromJson(Map<String, dynamic> json) {

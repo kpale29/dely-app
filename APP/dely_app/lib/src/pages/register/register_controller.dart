@@ -1,11 +1,12 @@
 import 'package:dely_app/src/models/response_api.dart';
 import 'package:dely_app/src/models/usuario.dart';
 import 'package:dely_app/src/provider/usuario_provider.dart';
+import 'package:dely_app/src/utils/my_snackbar.dart';
 import 'package:flutter/material.dart';
 
 class RegisterController{
 
-  BuildContext? context;
+  late BuildContext context;
   TextEditingController emailController =  TextEditingController();
   TextEditingController nameController =  TextEditingController();
   TextEditingController lastnameController =  TextEditingController();
@@ -27,6 +28,24 @@ class RegisterController{
     String phone = phoneController.text.trim(); 
     String password = passwordController.text.trim(); 
     String confirmPassword = confirmPasswordController.text.trim(); 
+    
+    if(email.isEmpty || name.isEmpty || lastname.isEmpty || phone.isEmpty || password.isEmpty || confirmPassword.isEmpty){
+      MySnackbar.show(context,'Ingresar todos los campos');
+      return;
+    }
+
+    if(confirmPassword != password) { 
+      MySnackbar.show(context,'Contreñas no coinciden');
+      return;
+    }
+
+    if(password.length < 6) { 
+      MySnackbar.show(context,'La contraseña debe tener al menos 6 caracteres');
+      return;
+    }
+
+
+
 
     Usuario usuario = Usuario(
       correo : email, 
@@ -37,9 +56,10 @@ class RegisterController{
 
     ResponseApi? responseApi = await userProvider.create(usuario);
 
-    if(responseApi != null) {
-    print('Respuesta ${responseApi.toJson()}');
-    }
+    MySnackbar.show(context,responseApi?.message);
+    // if(responseApi != null) {
+    // print('Respuesta ${responseApi.toJson()}');
+    // }
 
 
   }

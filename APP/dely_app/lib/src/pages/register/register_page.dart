@@ -95,6 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(30)),
                     child: TextField(
                         controller: _con.phoneController,
+                        keyboardType: TextInputType.number,
                         decoration: const InputDecoration(
                           hintText: 'Telefono',
                           border: InputBorder.none,

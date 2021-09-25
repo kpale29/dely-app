@@ -1,3 +1,4 @@
+import 'package:dely_app/src/pages/cliente/productos/lista/cliente_productos_lista_page.dart';
 import 'package:dely_app/src/pages/login/login_page.dart';
 import 'package:dely_app/src/pages/register/register_page.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'login': (BuildContext context) => const LoginPage(),
         'register' : (BuildContext context) => const RegisterPage(),
+        'clientes/productos/lista' : (BuildContext context) => ClienteProductosListaPage(),
       },
       theme: ThemeData(primaryColor: Colors.teal.shade700),
     );

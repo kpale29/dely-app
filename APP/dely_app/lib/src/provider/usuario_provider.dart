@@ -41,4 +41,27 @@ class UsuarioProvider {
     
   }
 
+  Future<ResponseApi?> login(String corre, String password) async{ 
+    try{
+    Uri url = Uri.http(_url, '$_api/login');
+    String bodyParams = json.encode({
+      'correo':corre, 
+      'password':password
+    });
+    Map<String,String> headers = {
+      'Content-type':'application/json'
+    };
+    final response = await http.post(url,headers: headers, body: bodyParams);
+    
+    print(response.body);
+    final data = json.decode(response.body);
+
+    ResponseApi responseApi = ResponseApi.fromJson(data);
+    return responseApi;
+    }catch(e){
+      print('Error al iniciar sesion: $e' );
+      return null;
+    }
+  }
+
 }

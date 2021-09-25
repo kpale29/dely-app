@@ -1,5 +1,7 @@
 const { create } = require('../models/usuario');
 const Usuario = require('../models/usuario');
+const jwt = require('jsonwebtoken');
+const Keys = require('../config/keys');
 
 module.exports = {
     async getAll(req,res,next) {
@@ -33,5 +35,63 @@ module.exports = {
                 error: error
             });
         }
+    },
+
+    async login(req,res,next){ 
+        try {
+        
+            const correo = req.body.correo
+            const password = req.body.password
+            const user = await Usuario.buscarPorCorreo(correo)
+            if(user.length === 0){ 
+                return res.status(401).json({
+                    success: false,
+                    message: 'El usuario no existe',
+                }) 
+            }
+            userPassword = user[0].password;
+            
+            if (Usuario.siPasswordConcuerda(password,userPassword)){
+                const token = jwt.sign({
+                    id: user[0].id,
+                    email: user[0].correo,
+                }, Keys.secretOrKey, 
+                // {
+                //     expiresIn : (60*60*24)
+                // }
+                );
+                // const token = '';
+                const data = { 
+                    id: user[0].id, 
+                    nombre: user[0].nombre, 
+                    apellido: user[0].apellido,
+                    correo: user[0].correo, 
+                    telefono: user[0].telefono,
+                    imagen: user[0].imagen,
+                    token_sesion: `JWT ${token}`,
+                }
+
+                return res.status(201).json({
+                    success: true, 
+                    data: data,
+                    message: 'Inicio de sesion exitoso'
+                })
+            }else{ 
+                return res.status(401).json({
+                    success: false, 
+                    message: 'Contraseña incorrecta',
+                })
+            }
+
+        } catch (error) {
+            console.log(`Error login: ${error}`)
+            return res.status(501).json({ 
+                succes: false,
+                message: 'Error al iniciar sesion',
+                error: error
+            })
+        }
+
+
     }
 }

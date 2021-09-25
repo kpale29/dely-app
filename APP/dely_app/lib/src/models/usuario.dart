@@ -5,12 +5,12 @@ Usuario usuarioFromJson(String str) => Usuario.fromJson(json.decode(str));
 String usuarioToJson(Usuario data) => json.encode(data.toJson());
 
 class Usuario {
-    String? id;
-    String nombre;
-    String apellido;
-    String correo;
-    String telefono;
-    String password;
+    int? id;
+    String? nombre;
+    String? apellido;
+    String? correo;
+    String? telefono;
+    String? password;
     String? tokenSesion;
     String? imagen;
 
@@ -20,14 +20,14 @@ class Usuario {
       required this.apellido,
       required this.correo,
       required this.telefono,
-      required this.password,
+      this.password,
       this.tokenSesion,
       this.imagen,
     });
 
 
     factory Usuario.fromJson(Map<String, dynamic> json) => Usuario(
-        id: json["id"],
+        id: json["id"] ,
         nombre: json["nombre"],
         apellido: json["apellido"],
         correo: json["correo"],

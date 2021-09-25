@@ -5,6 +5,8 @@ module.exports = (app) => {
     app.get('/api/usuarios/getAll', UsersController.getAll);    
     //crear usuario para
     app.post('/api/usuarios/crear', UsersController.create);
+    //LOGIN
+    app.post('/api/usuarios/login', UsersController.login);
 
 }
 
