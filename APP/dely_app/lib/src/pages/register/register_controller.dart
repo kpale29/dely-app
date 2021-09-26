@@ -56,10 +56,16 @@ class RegisterController{
 
     ResponseApi? responseApi = await userProvider.create(usuario);
 
+    if(responseApi != null){
+      if(responseApi.succes) { 
+        Future.delayed(Duration(seconds: 3), (){
+        Navigator.pushReplacementNamed(context, 'clientes/productos/lista');  
+        });
+      } 
+    }
+
     MySnackbar.show(context,responseApi?.message);
-    // if(responseApi != null) {
-    // print('Respuesta ${responseApi.toJson()}');
-    // }
+    
 
 
   }

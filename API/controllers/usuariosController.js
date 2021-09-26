@@ -1,7 +1,9 @@
 const { create } = require('../models/usuario');
 const Usuario = require('../models/usuario');
+const Rol = require('../models/rol');
 const jwt = require('jsonwebtoken');
 const Keys = require('../config/keys');
+
 
 module.exports = {
     async getAll(req,res,next) {
@@ -18,14 +20,31 @@ module.exports = {
         }
     },
 
+    async getByemail(req,res,next) {
+        try {
+            const data = await Usuario.buscarPorCorreo(req.body.correo)
+            console.log(`Usuarios ${data}`);
+            return res.status(201).json(data)
+        } catch (error) {
+            console.log(`Error en consulta: ${error}`);
+            return res.status(501).json({
+                success: false,
+                menssage: `Error al consultar: ${error}`
+            })
+        } 
+
+    },
+
     async create(req,res,next) {
         try {
             const user = req.body; 
             const data = await Usuario.create(user);
+            const id = data[0]['LAST_INSERT_ID()']
+            await Rol.crear(id, 1);
             return res.status(201).json({
                 success: true,
                 message: 'El nuevo usuario se inserto correctamente',
-                data: data[0]['LAST_INSERT_ID()']
+                data: id
             });  
         } catch (error) {
             console.log(`Error: ${(error)}`);
@@ -69,7 +88,10 @@ module.exports = {
                     telefono: user[0].telefono,
                     imagen: user[0].imagen,
                     token_sesion: `JWT ${token}`,
+                    roles: JSON.parse(user[0].roles)
                 }
+
+                console.log(`Usuario enviado: ${data}`)
 
                 return res.status(201).json({
                     success: true, 

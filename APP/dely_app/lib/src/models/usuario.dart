@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:dely_app/src/models/rol.dart';
+
 Usuario usuarioFromJson(String str) => Usuario.fromJson(json.decode(str));
 
 String usuarioToJson(Usuario data) => json.encode(data.toJson());
 
 class Usuario {
-    int? id;
+    String? id;
     String? nombre;
     String? apellido;
     String? correo;
@@ -13,6 +15,7 @@ class Usuario {
     String? password;
     String? tokenSesion;
     String? imagen;
+    List<Rol>? roles = [];
 
     Usuario({
       this.id,
@@ -23,11 +26,12 @@ class Usuario {
       this.password,
       this.tokenSesion,
       this.imagen,
+      this.roles,
     });
 
 
     factory Usuario.fromJson(Map<String, dynamic> json) => Usuario(
-        id: json["id"] ,
+        id: json["id"] is int ? json["id"].toString() : json["id"] ,
         nombre: json["nombre"],
         apellido: json["apellido"],
         correo: json["correo"],
@@ -35,6 +39,7 @@ class Usuario {
         password: json["password"],
         tokenSesion: json["token_sesion"],
         imagen: json["imagen"],
+        roles: json["roles"] == null ? [] : List<Rol>.from(json['roles'].map((model)=> Rol.fromJson(model))) ?? [],
     );
 
     Map<String, dynamic> toJson() => {
@@ -45,6 +50,7 @@ class Usuario {
         "telefono": telefono,
         "password": password,
         "token_sesion": tokenSesion,
-        "imagen": imagen,
+        "imagen": imagen,        
+        "roles": roles,        
     };
 }

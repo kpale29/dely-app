@@ -7,6 +7,7 @@ module.exports = (app) => {
     app.post('/api/usuarios/crear', UsersController.create);
     //LOGIN
     app.post('/api/usuarios/login', UsersController.login);
-
+    //Listar por correo
+    app.get('/api/usuarios/getByemail', UsersController.getByemail);
 }
 

@@ -9,6 +9,49 @@
 
 -- predefined type, no DDL - XMLTYPE
 
+insert into roles (nombre,route) values ('CLIENTE', 'clientes/productos/lista');
+insert into roles (nombre,route) values ('RESTAURANTE', 'restaurante/ordenes/lista');
+insert into roles (nombre,route) values ('REPARTIDOR', 'delivery/ordenes/lista');
+
+CREATE TABLE usuarios (
+    id            INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    correo        VARCHAR(180) NOT NULL UNIQUE,
+    password      VARCHAR(255) NOT NULL,
+    telefono      VARCHAR(80) NOT NULL UNIQUE,
+    nombre        VARCHAR(255) NOT NULL,
+    imagen        VARCHAR(255),
+    estado        BOOLEAN,
+    apellido      VARCHAR(255) NOT NULL,
+    token_sesion  VARCHAR(180),
+    creado        DATETIME NOT NULL, 
+    modificado    DATETIME NOT NULL
+);
+
+ALTER TABLE usuarios ADD CONSTRAINT usuarios_pk PRIMARY KEY ( id );
+
+CREATE TABLE roles(  
+    id INTEGER NOT NULL primary key AUTO_INCREMENT,
+    nombre  VARCHAR(180) NOT NULL UNIQUE,
+    imagen  VARCHAR(255),
+    route   VARCHAR(255)
+);
+ALTER TABLE roles ADD CONSTRAINT roles_pk PRIMARY KEY ( id );
+
+CREATE TABLE roles_usuarios (
+    id_usuario  INTEGER NOT NULL,
+    id_rol      INTEGER NOT NULL 
+);
+
+ALTER TABLE roles_usuarios
+    ADD CONSTRAINT roles_usuarios_roles_fk FOREIGN KEY ( id_rol )
+        REFERENCES roles ( id );
+
+ALTER TABLE roles_usuarios
+    ADD CONSTRAINT roles_usuarios_usuarios_fk FOREIGN KEY ( id_usuario )
+        REFERENCES usuarios ( id );
+
+ALTER TABLE roles_usuarios ADD PRIMARY KEY(id_rol,id_usuario);
+
 CREATE TABLE categorias (
     id           INTEGER NOT NULL,
     nombre       NVARCHAR2(180) NOT NULL,
@@ -60,37 +103,13 @@ CREATE TABLE productos (
 
 ALTER TABLE productos ADD CONSTRAINT productos_pk PRIMARY KEY ( id );
 
-CREATE TABLE roles (
-    id      INTEGER NOT NULL,
-    nombre  NVARCHAR2(180) NOT NULL,
-    imagen  NVARCHAR2(255),
-    route   NVARCHAR2(255)
-);
 
-ALTER TABLE roles ADD CONSTRAINT roles_pk PRIMARY KEY ( id );
+ALTER TABLE pedidos_productos
+    ADD CONSTRAINT pedidos_productos_productos_fk FOREIGN KEY ( id_producto )
+        REFERENCES productos ( id );
 
-CREATE TABLE roles_usuarios (
-    id_usuario  INTEGER NOT NULL,
-    id_rol      INTEGER NOT NULL
-);
 
-ALTER TABLE roles_usuarios ADD CONSTRAINT roles_usuarios_pk PRIMARY KEY ( id_usuario, id_rol );
 
-CREATE TABLE usuarios (
-    id            INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    correo        VARCHAR(180) NOT NULL UNIQUE,
-    password      VARCHAR(255) NOT NULL,
-    telefono      VARCHAR(80) NOT NULL UNIQUE,
-    nombre        VARCHAR(255) NOT NULL,
-    imagen        VARCHAR(255),
-    estado        BOOLEAN,
-    apellido      VARCHAR(255) NOT NULL,
-    token_sesion  VARCHAR(180),
-    creado        DATETIME NOT NULL, 
-    modificado    DATETIME NOT NULL
-);
-
-ALTER TABLE usuarios ADD CONSTRAINT usuarios_pk PRIMARY KEY ( id );
 
 ALTER TABLE direccion
     ADD CONSTRAINT direccion_usuarios_fk FOREIGN KEY ( id_usuario )
@@ -108,21 +127,12 @@ ALTER TABLE pedidos_productos
     ADD CONSTRAINT pedidos_productos_pedido_fk FOREIGN KEY ( id_pedido )
         REFERENCES pedidos ( id );
 
-ALTER TABLE pedidos_productos
-    ADD CONSTRAINT pedidos_productos_productos_fk FOREIGN KEY ( id_producto )
-        REFERENCES productos ( id );
+
 
 ALTER TABLE productos
     ADD CONSTRAINT productos_categorias_fk FOREIGN KEY ( id_categoria )
         REFERENCES categorias ( id );
 
-ALTER TABLE roles_usuarios
-    ADD CONSTRAINT roles_usuarios_roles_fk FOREIGN KEY ( id_rol )
-        REFERENCES roles ( id );
-
-ALTER TABLE roles_usuarios
-    ADD CONSTRAINT roles_usuarios_usuarios_fk FOREIGN KEY ( id_usuario )
-        REFERENCES usuarios ( id );
 
 CREATE SEQUENCE categorias_id_seq START WITH 1 NOCACHE ORDER;
 
