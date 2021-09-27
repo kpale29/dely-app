@@ -53,7 +53,6 @@ class UsuarioProvider {
     };
     final response = await http.post(url,headers: headers, body: bodyParams);
     
-    print(response.body);
     final data = json.decode(response.body);
 
     ResponseApi responseApi = ResponseApi.fromJson(data);

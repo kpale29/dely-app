@@ -41,7 +41,6 @@ Usuario.buscarPorId  = async (id, callback) => {
 Usuario.buscarPorCorreo = async(email)=> { 
     const sql = `SELECT U.id, U.nombre, U.correo, U.apellido,U.imagen, U.telefono, U.password, U.token_sesion, CONCAT('[',GROUP_CONCAT(JSON_OBJECT( 'id', R.id, 'nombre',R.nombre, 'imagen',R.imagen, 'route',R.route )),']') AS roles FROM usuarios AS U INNER JOIN roles_usuarios AS RU ON RU.id_usuario = U.id INNER JOIN roles as R ON R.id = RU.id_rol WHERE correo='${email}' group by U.id;`
     var results = await db.query(sql)
-    
     return results
 }
 

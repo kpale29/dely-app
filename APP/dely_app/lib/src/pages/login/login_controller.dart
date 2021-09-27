@@ -21,7 +21,12 @@ class LoginController{
     // print('Usuario: ${usuario.toJson()}');
 
     if(usuario.tokenSesion != null){
-      Navigator.pushNamedAndRemoveUntil(context, 'clientes/productos/lista', (route) => false);
+      if(usuario.roles!.length > 1){
+        Navigator.pushNamedAndRemoveUntil(context, 'roles', (route) => false);
+
+      }else{
+        Navigator.pushNamedAndRemoveUntil(context, usuario.roles![0].route, (route) => false);
+      }
     }
   }
 
@@ -39,7 +44,13 @@ class LoginController{
     if(responseApi.succes){
       Usuario user = Usuario.fromJson(responseApi.data!);
       _sharedPref.save('user',user.toJson());
-      Navigator.pushNamedAndRemoveUntil(context!, 'clientes/productos/lista', (route) => false);
+      if(user.roles!.length > 1){
+        Navigator.pushNamedAndRemoveUntil(context!, 'roles', (route) => false);
+
+      }else{
+        Navigator.pushNamedAndRemoveUntil(context!, user.roles![0].route, (route) => false);
+      }
+
     }else{ 
     MySnackbar.show(context!, responseApi.message);
       
