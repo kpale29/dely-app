@@ -91,6 +91,8 @@ module.exports = {
                     roles: JSON.parse(user[0].roles)
                 }
 
+                await Usuario.actualizarToken(user[0].id, `JWT ${token}`); 
+
                 console.log(`Usuario enviado: ${data}`)
 
                 return res.status(201).json({

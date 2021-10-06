@@ -53,12 +53,32 @@ ALTER TABLE roles_usuarios
 ALTER TABLE roles_usuarios ADD PRIMARY KEY(id_rol,id_usuario);
 
 CREATE TABLE categorias (
-    id           INTEGER NOT NULL,
-    nombre       NVARCHAR2(180) NOT NULL,
-    descripcion  NVARCHAR2(255)
+    id           INTEGER NOT NULL primary key AUTO_INCREMENT,
+    nombre       VARCHAR(180) NOT NULL UNIQUE,
+    descripcion  VARCHAR(255) NOT NULL
+);
+ALTER TABLE categorias ADD CONSTRAINT categorias_pk PRIMARY KEY ( id );
+
+CREATE TABLE productos (
+    id            INTEGER NOT NULL primary key AUTO_INCREMENT,
+    nombre        VARCHAR(180) NOT NULL UNIQUE,
+    descripcion   VARCHAR(255) NOT NULL,
+    precio        DECIMAL(10,2) NOT NULL DEFAULT 0,
+    imagen1       VARCHAR(255),
+    imagen2       VARCHAR(255),
+    imagen3       VARCHAR(255),
+    id_categoria  INTEGER NOT NULL
 );
 
-ALTER TABLE categorias ADD CONSTRAINT categorias_pk PRIMARY KEY ( id );
+
+ALTER TABLE productos
+    ADD CONSTRAINT productos_categorias_fk FOREIGN KEY ( id_categoria )
+        REFERENCES categorias ( id );
+ALTER TABLE productos ADD CONSTRAINT productos_pk PRIMARY KEY ( id );
+
+
+-- HASTA AQUI TODO BIEN 
+
 
 CREATE TABLE direccion (
     id          INTEGER NOT NULL,
@@ -90,18 +110,7 @@ CREATE TABLE pedidos_productos (
     cantidad     INTEGER
 );
 
-CREATE TABLE productos (
-    id            INTEGER NOT NULL,
-    nombre        NVARCHAR2(180) NOT NULL,
-    descripcion   NVARCHAR2(255),
-    precio        NUMBER(10),
-    imagen1       NVARCHAR2(255),
-    imagen2       NVARCHAR2(255) NOT NULL,
-    imagen3       NVARCHAR2(255),
-    id_categoria  INTEGER NOT NULL
-);
 
-ALTER TABLE productos ADD CONSTRAINT productos_pk PRIMARY KEY ( id );
 
 
 ALTER TABLE pedidos_productos
@@ -129,9 +138,7 @@ ALTER TABLE pedidos_productos
 
 
 
-ALTER TABLE productos
-    ADD CONSTRAINT productos_categorias_fk FOREIGN KEY ( id_categoria )
-        REFERENCES categorias ( id );
+
 
 
 CREATE SEQUENCE categorias_id_seq START WITH 1 NOCACHE ORDER;

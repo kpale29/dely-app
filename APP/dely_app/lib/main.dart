@@ -2,7 +2,9 @@ import 'package:dely_app/src/pages/cliente/productos/lista/cliente_productos_lis
 import 'package:dely_app/src/pages/delivery/ordenes/lista/delivery_ordenes_lista_page.dart';
 import 'package:dely_app/src/pages/login/login_page.dart';
 import 'package:dely_app/src/pages/register/register_page.dart';
+import 'package:dely_app/src/pages/restaurante/categorias/crear/restaurante_categorias_crear_page.dart';
 import 'package:dely_app/src/pages/restaurante/ordenes/lista/restaurante_ordenes_lista_page.dart';
+import 'package:dely_app/src/pages/restaurante/productos/crear/restaurante_producto_crear_page.dart';
 import 'package:dely_app/src/pages/roles/roles_page.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +31,8 @@ class _MyAppState extends State<MyApp> {
         'register' : (BuildContext context) => const RegisterPage(),
         'clientes/productos/lista' : (BuildContext context) => ClienteProductosListaPage(),
         'restaurante/ordenes/lista' : (BuildContext context) => RestauranteOrdenesListaPage(),
+        'restaurante/categorias/crear' : (BuildContext context) => RestauranteCategoriasCrearPage(),
+        'restaurante/productos/crear' : (BuildContext context) => RestauranteProductosCrearPage(),
         'delivery/ordenes/lista' : (BuildContext context) => DeliveryOrdenesListaPage(),
         'roles' : (BuildContext context) => RolesPage(),
       },

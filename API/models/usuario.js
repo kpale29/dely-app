@@ -32,6 +32,13 @@ Usuario.create = async (usuario) => {
     return results;
 }
 
+Usuario.actualizarToken = async (id,token) => {
+    console.log(token)
+    const sql = `UPDATE USUARIOS SET token_sesion = \'${token}\' WHERE id = ${id}`; 
+    var results = await db.query(sql)
+    return results 
+}
+
 Usuario.buscarPorId  = async (id, callback) => {
     const sql = `SELECT id, correo,apellido,imagen, telefono, password, token_sesion FROM usuarios WHERE id='${id}';`
     var results = await db.query(sql).then(usuario =>{ callback(null,usuario)});

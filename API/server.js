@@ -4,10 +4,24 @@ const http = require('http');
 const server = http.createServer(app);
 const logger = require('morgan');
 const cors = require('cors');
+const multer = require('multer');
+const admin = require('firebase-admin');
+const serviceAccount = require('./serviceAccountKey.json');
+
+/* Iniciar Firebase Admin */ 
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
+
+const upload = multer({
+    storage: multer.memoryStorage()
+})
 
 
 /* Rutas*/
 const usuarios = require('./routes/usuarioRoutes'); 
+const categorias = require('./routes/categoriasRoutes'); 
+const productos = require('./routes/productosRoutes'); 
 
 
 const port = process.env.PORT || 3000;
@@ -21,8 +35,10 @@ app.disable('x-powered-by');
 app.set('port',port);
 //llamado a las rutas 
 usuarios(app); 
+categorias(app);
+productos(app);
 
-server.listen(3000,'192.168.1.24'  || 'localhost', () => { 
+server.listen(3000,'localhost'  || 'localhost', () => { 
     console.log('Aplicacion de nodejs', process.pid, 'en el puerto', port, 'iniciado');
 });
 
