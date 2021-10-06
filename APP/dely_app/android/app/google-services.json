@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "405035684138",
+    "project_id": "delyapp-7a651",
+    "storage_bucket": "delyapp-7a651.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405035684138:android:51ecbd3955f8dd27258e53",
+        "android_client_info": {
+          "package_name": "com.example.dely_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "405035684138-ijss0u53hhqectfnhk9gd9g8jskc7t1r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dely_app",
+            "certificate_hash": "4592fe3e634ad602b0a7892087f9a7851a6d6646"
+          }
+        },
+        {
+          "client_id": "405035684138-iel4a0u3qbd7r6a9dttkhh3uj6kfsq85.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqLEltKK3QFPrvAhX4slLsN0F2eV6Fc1Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "405035684138-iel4a0u3qbd7r6a9dttkhh3uj6kfsq85.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
