@@ -104,7 +104,7 @@ class _RestauranteProductosCrearPageState extends State<RestauranteProductosCrea
                       _cardImage(),
                     ],),
                   ),
-                  _dropDownCategorias([]),
+                  _dropDownCategorias(_con.categorias),
                   Container(
                   width: double.infinity,
                   margin:  const EdgeInsets.symmetric(horizontal: 50,vertical: 30),
@@ -201,7 +201,14 @@ class _RestauranteProductosCrearPageState extends State<RestauranteProductosCrea
                     isExpanded: true,
                     hint: Text('Seleccionar categorias',
                     style: TextStyle(color: Colors.green,fontSize: 16)),
-                  items: []
+                  items: _dropDownItems(categorias),
+                  value: _con.idCategoria == '' ? null : _con.idCategoria,
+                  onChanged: (option){
+                    setState(() {
+                      print(option);
+                      _con.idCategoria = option.toString();
+                    });
+                  },
                   ),
               )
           ],)
@@ -211,7 +218,17 @@ class _RestauranteProductosCrearPageState extends State<RestauranteProductosCrea
       );
   }
 
-  
+  List<DropdownMenuItem<String>> _dropDownItems(List<Categoria> categorias) {
+    List<DropdownMenuItem<String>> list = [];
+
+    categorias.forEach((element) {
+      list.add(DropdownMenuItem(
+        child: Text(element.nombre),
+        value: element.id,
+        ));
+    });
+    return list;
+  }
 
   void refresh() {
     setState(() {

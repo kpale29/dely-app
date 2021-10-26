@@ -1,6 +1,13 @@
+import 'package:dely_app/src/models/categoria.dart';
+import 'package:dely_app/src/models/producto.dart';
 import 'package:dely_app/src/models/usuario.dart';
+import 'package:dely_app/src/pages/cliente/productos/detalle/cliente_producto_detalle_page.dart';
+import 'package:dely_app/src/pages/cliente/productos/lista/cliente_productos_lista_page.dart';
+import 'package:dely_app/src/provider/categorias_provider.dart';
+import 'package:dely_app/src/provider/productos_provider.dart';
 import 'package:dely_app/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ClienteProductosListaController {
   Usuario? user; 
@@ -8,15 +15,36 @@ class ClienteProductosListaController {
   SharedPref _sharedPref = SharedPref();
   Function? refresh; 
 
+  List<Categoria> categorias = [];
+  CategoriasProvider _categoriasProvider =  CategoriasProvider();
+  ProductosProvider _productosProvider =  ProductosProvider();
+
   Future? init(BuildContext? context,Function refresh) async{
     this.context = context;
     this.refresh = refresh;
     user = Usuario.fromJson(await _sharedPref.read('user'));
+    _categoriasProvider.init(context!);
+    getCategorias();
     refresh();
   }
 
   logout(){
     _sharedPref.logout(context!);
+  }
+
+  void getCategorias() async { 
+    categorias = await _categoriasProvider.getAll();
+    refresh!();
+  }
+
+  void openBottomSheet(Producto producto){
+    showMaterialModalBottomSheet(
+      context: context!, 
+      builder: (context)=>ClienteProductoDetallePage(producto: producto));
+  }
+
+  Future<List<Producto>> getProductos(String idCategoria) async {
+    return await _productosProvider.getProductos(idCategoria);
   }
 
   void goToPage(){

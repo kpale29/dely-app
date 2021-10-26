@@ -17,8 +17,22 @@ module.exports = {
         } catch (error) {
             console.log(`Erro: ${error.message}`);
             return res.status(501).json({ 
-                succes: false,
+                success: false,
                 message: 'Hubo un error al crear la categoria',
+                error: error
+            })
+        }
+    },
+
+    async getAll(req,res,next){
+        try {
+            const data = await Categoria.getAll();
+            res.status(201).json(data)
+        } catch (error) {
+            console.log(`Error: ${error}`)
+            return res.status(501).json({ 
+                success: false,
+                message: 'Hubo un error al obtener categorias',
                 error: error
             })
         }

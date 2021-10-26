@@ -11,5 +11,12 @@ Categoria.create = async (categoria) => {
     return results
 }
 
+Categoria.getAll = async () => { 
+    const sql = `SELECT * FROM CATEGORIAS order by nombre`
+    var results = await db.query(sql)
+    console.log(results)
+    return results
+}
+
 
 module.exports = Categoria; 

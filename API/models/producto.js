@@ -11,6 +11,17 @@ Product.crear  = async (producto) => {
     return results
 }
 
+Product.getByCategoria = async (id_categoria) => {
+    sql = `SELECT p.id, p.nombre, p.descripcion, p.precio, p.id_categoria
+    FROM productos as p
+    Inner join 
+    categorias as c 
+    on p.id_categoria = c.id
+    where c.id = ${id_categoria};`
+    let results = await db.query(sql);
+    return results
+}
+
 Product.update = async (producto) =>{
     const sql = `UPDATE PRODUCTOS SET 
     nombre = ${producto.nombre}, 
