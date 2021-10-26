@@ -84,7 +84,7 @@ class _ClienteProductosListaPageState extends State<ClienteProductosListaPage> {
     );
   }
 
-  Widget _cardProducto( Producto producto) { 
+  Widget _cardProducto( Producto producto)  { 
     int rnd = 1 + Random().nextInt(10);
     int food = 1 + Random().nextInt(10);
 
@@ -123,7 +123,7 @@ class _ClienteProductosListaPageState extends State<ClienteProductosListaPage> {
     }
 
     return GestureDetector(
-      onTap: (){_con.openBottomSheet(producto);},
+      onTap: (){ _con.openBottomSheet(producto);},
       child: Container(
         height:250,
         child: Card(
@@ -194,27 +194,30 @@ class _ClienteProductosListaPageState extends State<ClienteProductosListaPage> {
   }
 
   Widget _shoppingBag(){
-    return Stack(
-      children:[
-      Container(
-        margin: EdgeInsets.only(right:15,top:15),
-        child: Icon(Icons.shopping_bag_outlined,
-        color: Colors.white,
+    return GestureDetector(
+      onTap: _con.goToOrderCreatePage,
+      child: Stack(
+        children:[
+        Container(
+          margin: EdgeInsets.only(right:15,top:15),
+          child: Icon(Icons.shopping_bag_outlined,
+          color: Colors.white,
+          ),
         ),
-      ),
-      Positioned(
-        right:16,
-        top:15,
-        child: Container( 
-          width: 9,
-          height: 9,
-          decoration: const BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.all(Radius.circular(30))
+        Positioned(
+          right:16,
+          top:15,
+          child: Container( 
+            width: 9,
+            height: 9,
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.all(Radius.circular(30))
+            )
+          ),
           )
-         ),
-        )
-      ] 
+        ] 
+      ),
     );
   }
 

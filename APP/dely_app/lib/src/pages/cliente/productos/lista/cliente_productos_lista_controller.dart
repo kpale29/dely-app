@@ -37,7 +37,7 @@ class ClienteProductosListaController {
     refresh!();
   }
 
-  void openBottomSheet(Producto producto){
+  void openBottomSheet(Producto producto) async {
     showMaterialModalBottomSheet(
       context: context!, 
       builder: (context)=>ClienteProductoDetallePage(producto: producto));
@@ -59,4 +59,7 @@ class ClienteProductosListaController {
     }
   }
 
-}
+  void goToOrderCreatePage(){
+          Navigator.pushNamed(context!,'clientes/ordenes/crear');
+      }
+  }

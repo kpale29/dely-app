@@ -19,7 +19,6 @@ class _ClienteProductoDetallePageState extends State<ClienteProductoDetallePage>
   ClienteProductoDetalleController _con  = ClienteProductoDetalleController();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     SchedulerBinding.instance!.addPostFrameCallback((timeStamp) { 
@@ -36,6 +35,10 @@ class _ClienteProductoDetallePageState extends State<ClienteProductoDetallePage>
         children: [
         _imageRandomWidget(),
         _textName(),
+        _textDescription(),
+        SizedBox(height: 90 ),
+        _addOrRemoveItem(),
+        _buttonShoppingBag()
         ],
       )
     );
@@ -88,16 +91,95 @@ class _ClienteProductoDetallePageState extends State<ClienteProductoDetallePage>
 
   Widget _textName() {
     return Container(
+    margin: EdgeInsets.only(top: 15, left: 30),
     alignment:  Alignment.centerLeft,
-    margin: EdgeInsets.only(),
-    child: 
-    Text(_con.producto.nombre, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)
+    child: GetProducto(),
     );
   }
+  Widget _textDescription() {
+    return Container(
+    margin: EdgeInsets.only(top: 15, left: 30),
+    alignment:  Alignment.centerLeft,
+    child: GetDescription(),
+    );
+  }
+
+  Widget _addOrRemoveItem(){
+    return Row(
+      children: [
+        IconButton(onPressed: _con.removeItem,
+        icon: Icon(Icons.remove_circle_outline, color: Colors.grey, size: 40)
+        ),
+        SizedBox(width: 10),
+        Text(_con.counter.toString(),style: TextStyle(
+          fontSize: 30,
+          color: Colors.grey, 
+          fontWeight: FontWeight.bold)),
+        IconButton(onPressed: _con.addItem,
+        icon: Icon(Icons.add_circle_outline, color: Colors.grey, size: 40)
+        ),
+        Spacer(),
+        Container(
+          margin: EdgeInsets.only(right: 25),
+          child: GetPrice()
+        )
+      ],
+    );
+  }
+  
+  Widget _buttonShoppingBag(){
+    return Container(
+      margin: EdgeInsets.only(top: 50),
+      width: 275,
+      height: 50,
+      child: ElevatedButton(
+        onPressed: _con.addToBag,
+        style: ElevatedButton.styleFrom(primary: Colors.green),
+        child: Text('Agregar a la bolsa')
+      )
+    );
+  }
+
   void refresh() { 
     setState(() {
-
     });
+  }
+
+  Widget GetProducto(){
+    if(_con.producto != null){
+      if(_con.producto!.nombre != null){
+      return Text(_con.producto!.nombre, 
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold));
+      }
+    }
+    return Text('');
+  }
+  
+  Widget GetDescription(){
+    if(_con.producto != null){
+      if(_con.producto!.descripcion != null){
+      return Text(_con.producto!.descripcion, 
+        style: TextStyle(
+          fontSize: 18, 
+          fontWeight: FontWeight.bold,
+          color: Colors.grey
+          ));
+      }
+    }
+    return Text('');
+  }
+
+  Widget GetPrice(){ 
+    if(_con.producto != null){
+      if(_con.productPrice != null){
+      return Text('Q ${_con.productPrice}', 
+        style: TextStyle(
+          fontSize: 20, 
+          fontWeight: FontWeight.bold,
+          ));
+      }
+    }
+    return Text('Q0.00');
   }
 
 }
