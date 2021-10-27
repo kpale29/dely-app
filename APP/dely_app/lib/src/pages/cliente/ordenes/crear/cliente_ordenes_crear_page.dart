@@ -61,7 +61,7 @@ class _ClientesOrdenesCrearPageState extends State<ClientesOrdenesCrearPage> {
       width: 275,
       height: 50,
       child: ElevatedButton(
-        onPressed: (){},
+        onPressed: _con.goToOrderDireccionPage,
         style: ElevatedButton.styleFrom(primary: Colors.green),
         child: Text('Continuar',style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold))
       )

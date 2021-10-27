@@ -76,6 +76,44 @@ ALTER TABLE productos
         REFERENCES categorias ( id );
 ALTER TABLE productos ADD CONSTRAINT productos_pk PRIMARY KEY ( id );
 
+CREATE TABLE pedidos (
+    id             INTEGER NOT NULL primary key AUTO_INCREMENT,
+    id_cliente     INTEGER NOT NULL,
+    id_repartidor  INTEGER NULL,
+    direccion      VARCHAR(255),
+    -- lng            NUMBER(10),
+    -- lat            NUMBER(10),
+    status         VARCHAR(90) not null,
+    timestamp      INTEGER NOT NULL
+);
+
+ALTER TABLE pedidos
+    ADD CONSTRAINT pedido_usuarios_fk FOREIGN KEY ( id_cliente )
+        REFERENCES usuarios ( id );
+
+ALTER TABLE pedidos
+    ADD CONSTRAINT pedido_usuarios_fkv2 FOREIGN KEY ( id_repartidor )
+        REFERENCES usuarios ( id );
+
+ALTER TABLE pedidos ADD CONSTRAINT pedido_pk PRIMARY KEY ( id );
+
+CREATE TABLE pedidos_productos (
+    id_pedido    INTEGER NOT NULL primary key,
+    id_producto  INTEGER NOT NULL primary key,
+    cantidad     INTEGER
+);
+
+ALTER TABLE pedidos_productos 
+ADD PRIMARY KEY (id_pedido,id_producto);
+
+ALTER TABLE pedidos_productos
+    ADD CONSTRAINT pedidos_productos_pedido_fk FOREIGN KEY ( id_pedido )
+        REFERENCES pedidos ( id );
+
+ALTER TABLE pedidos_productos
+    ADD CONSTRAINT pedidos_productos_productos_fk FOREIGN KEY ( id_producto )
+        REFERENCES productos ( id );
+
 
 -- HASTA AQUI TODO BIEN 
 
@@ -91,53 +129,12 @@ CREATE TABLE direccion (
 
 ALTER TABLE direccion ADD CONSTRAINT direccion_pk PRIMARY KEY ( id );
 
-CREATE TABLE pedidos (
-    id             INTEGER NOT NULL,
-    id_cliente     INTEGER NOT NULL,
-    id_repartidor  INTEGER NOT NULL,
-    id_direccion   INTEGER,
-    lat        NUMBER(10),
-    lng            NUMBER(10),
-    status         NVARCHAR2(90),
-    timestamp      INTEGER
-);
-
-ALTER TABLE pedidos ADD CONSTRAINT pedido_pk PRIMARY KEY ( id );
-
-CREATE TABLE pedidos_productos (
-    id_pedido    INTEGER NOT NULL,
-    id_producto  INTEGER NOT NULL,
-    cantidad     INTEGER
-);
-
-
-
-
-ALTER TABLE pedidos_productos
-    ADD CONSTRAINT pedidos_productos_productos_fk FOREIGN KEY ( id_producto )
-        REFERENCES productos ( id );
-
 
 
 
 ALTER TABLE direccion
     ADD CONSTRAINT direccion_usuarios_fk FOREIGN KEY ( id_usuario )
         REFERENCES usuarios ( id );
-
-ALTER TABLE pedidos
-    ADD CONSTRAINT pedido_usuarios_fk FOREIGN KEY ( id_cliente )
-        REFERENCES usuarios ( id );
-
-ALTER TABLE pedidos
-    ADD CONSTRAINT pedido_usuarios_fkv2 FOREIGN KEY ( id_repartidor )
-        REFERENCES usuarios ( id );
-
-ALTER TABLE pedidos_productos
-    ADD CONSTRAINT pedidos_productos_pedido_fk FOREIGN KEY ( id_pedido )
-        REFERENCES pedidos ( id );
-
-
-
 
 
 

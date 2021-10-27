@@ -22,15 +22,52 @@ class _RestauranteOrdenesListaPageState extends State<RestauranteOrdenesListaPag
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return DefaultTabController(
+      length: _con.categorias.length,
+    child: Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text('Restaurante'),),
-      drawer: _drawer(),
-      body: Center(
-        child: Text('Restaurante PAge'),
+        title: Text('Restaurante'),
+        bottom: TabBar(
+            isScrollable: true,
+            tabs: List<Widget>.generate(_con.categorias.length, (index) {
+              return Tab(
+                child: Text(_con.categorias[index]),
+                );
+            })
+        ),
       ),
-    );
+      drawer: _drawer(),
+      body: TabBarView(children: _con.categorias.map((String categoria) {
+        return Container();
+          // return FutureBuilder(
+          //   future: _con.getProductos((categoria.id).toString()),
+          //   builder: (context, AsyncSnapshot<List<Producto>> snapshot) {
+
+          //     if(snapshot.hasData){
+          //       if(snapshot.data!.length > 0){
+          //         return GridView.builder(
+          //       padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+          //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          //         crossAxisCount: 2,
+          //         childAspectRatio: 0.7
+          //       ), 
+          //       itemCount: snapshot.data?.length ?? 0,
+          //       itemBuilder: ( _ , index){
+          //         return _cardProducto(snapshot.data![index]);
+          //       });
+          //       }else{
+          //         return NoDataWidget();
+          //       }
+          //     }else{
+          //         return NoDataWidget();
+          //     }
+
+          //   }
+          //   );
+        }).toList(),
+        )
+    ));
   }
   
   Widget _drawer(){ 

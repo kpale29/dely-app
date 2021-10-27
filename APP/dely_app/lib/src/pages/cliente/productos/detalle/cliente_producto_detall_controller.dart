@@ -57,6 +57,7 @@ class ClienteProductoDetalleController {
     producto!.cantidad = counter;
     refresh!();
   }
+
   void removeItem(){
     if(counter > 1 ){
     counter--;
@@ -66,4 +67,5 @@ class ClienteProductoDetalleController {
     }
   }
 
+  
 }

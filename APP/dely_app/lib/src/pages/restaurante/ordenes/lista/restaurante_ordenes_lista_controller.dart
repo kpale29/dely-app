@@ -7,6 +7,8 @@ class RestauranteOrdenesListaController{
   BuildContext? context;
   SharedPref _sharedPref = SharedPref();
   Function? refresh; 
+
+  List<String> categorias = ['PAGADO','DESPACHADO','EN CAMINO','ENTREGADO'];
   Future? init(BuildContext? context,Function refresh)async {
     this.context = context;
     user = Usuario.fromJson(await _sharedPref.read('user'));

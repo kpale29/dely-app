@@ -61,4 +61,8 @@ class ClienteOrdenesCrearController {
     _sharedPref.save('order', selectedProducts);
     getTotal();
   }
+
+  void goToOrderDireccionPage(){
+          Navigator.pushNamed(context!,'clientes/ordenes/direccion');
+  }
 }
