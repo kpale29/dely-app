@@ -125,48 +125,49 @@ class _RestauranteProductosCrearPageState extends State<RestauranteProductosCrea
   }
 
   Widget _cardImage(){
-    int rnd = 1 + Random().nextInt(10);
-    int food = 1 + Random().nextInt(10);
+    // int rnd = 1 + Random().nextInt(10);
+    // int food = 1 + Random().nextInt(10);
 
-    String comida = 'burger';
-    switch (food){
-      case 1: 
-        comida = 'biryani';
-      break; 
-      case 2: 
-        comida = 'burger';
-      break; 
-      case 3: 
-        comida = 'butter-chicken';
-      break; 
-      case 4: 
-        comida = 'dessert';
-      break; 
-      case 5: 
-        comida = 'dosa';
-      break; 
-      case 6: 
-        comida = 'idly';
-      break; 
-      case 7: 
-        comida = 'pasta';
-      break; 
-      case 8: 
-        comida = 'pizza';
-      break; 
-      case 9: 
-        comida = 'rice';
-      break; 
-      case 10: 
-        comida = 'samosa';
-      break; 
-    }    
+    // String comida = 'burger';
+    // switch (food){
+    //   case 1: 
+    //     comida = 'biryani';
+    //   break; 
+    //   case 2: 
+    //     comida = 'burger';
+    //   break; 
+    //   case 3: 
+    //     comida = 'butter-chicken';
+    //   break; 
+    //   case 4: 
+    //     comida = 'dessert';
+    //   break; 
+    //   case 5: 
+    //     comida = 'dosa';
+    //   break; 
+    //   case 6: 
+    //     comida = 'idly';
+    //   break; 
+    //   case 7: 
+    //     comida = 'pasta';
+    //   break; 
+    //   case 8: 
+    //     comida = 'pizza';
+    //   break; 
+    //   case 9: 
+    //     comida = 'rice';
+    //   break; 
+    //   case 10: 
+    //     comida = 'samosa';
+    //   break; 
+    // }    
     return Card(
       elevation: 3.0,
       child: Container(
         height: 80,
         width: MediaQuery.of(context).size.width * 0.26,
-        child: Image.network('https://foodish-api.herokuapp.com/images/${comida}/${comida}${rnd}.jpg',fit: BoxFit.cover),
+        // child: Image.network('https://foodish-api.herokuapp.com/images/${comida}/${comida}${rnd}.jpg',fit: BoxFit.cover),
+        child: Image.network('http://lorempixel.com/400/400/food/',fit: BoxFit.cover),
       ),
     );
   }

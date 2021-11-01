@@ -29,8 +29,7 @@ class ClienteProductoDetalleController {
     selectedProducts = producto.fromJsonList(await _sharedPref.read('order')).toList();
     selectedProducts.forEach( (p) =>print('Producto: ${p!.toJson()}'));
     }
-
-
+    
     refresh();
   }
 

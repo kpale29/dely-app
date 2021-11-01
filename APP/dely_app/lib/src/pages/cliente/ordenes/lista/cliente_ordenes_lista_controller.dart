@@ -1,5 +1,6 @@
 import 'package:dely_app/src/models/pedido.dart';
 import 'package:dely_app/src/models/usuario.dart';
+import 'package:dely_app/src/pages/cliente/ordenes/detalle/cliente_ordenes_detalle_page.dart';
 import 'package:dely_app/src/pages/delivery/ordenes/detalle/delivery_ordenes_detalle_page.dart';
 import 'package:dely_app/src/pages/restaurante/ordenes/detalle/restaurante_ordenes_detalle_controller.dart';
 import 'package:dely_app/src/pages/restaurante/ordenes/detalle/restaurante_ordenes_detalle_page.dart';
@@ -8,13 +9,13 @@ import 'package:dely_app/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class DeliveryOrdenesListaController{
+class ClienteOrdenesListaController{
   Usuario? user; 
   BuildContext? context;
   SharedPref _sharedPref = SharedPref();
   Function? refresh; 
 
-  List<String> estado = ['DESPACHADO','EN CAMINO','ENTREGADO'];
+  List<String> estado = ['PAGADO','DESPACHADO','EN CAMINO','ENTREGADO'];
   final PedidosProvider _pedidosProvider = PedidosProvider();
   
   bool isUpdate = false;
@@ -33,7 +34,7 @@ class DeliveryOrdenesListaController{
 
   Future<List<Pedido>> getPedidos(String estado) async { 
     if(user != null)
-    {return await _pedidosProvider.getByRepartidor(user!.id as String, estado);}
+    {return await _pedidosProvider.getByCliente(user!.id as String, estado);}
     return [];
   }
 
@@ -48,9 +49,6 @@ class DeliveryOrdenesListaController{
       }
     }
   }
-  void goToPerfil(){
-          Navigator.pushNamed(context!,'register/edit');
-  }
 
   void goToCategoriasCrear(){ 
     Navigator.pushNamed(context!, 'Delivery/categorias/crear');
@@ -61,7 +59,7 @@ class DeliveryOrdenesListaController{
   void openBottomSheet(Pedido pedido) async{
     var resultado = await showMaterialModalBottomSheet(
       context: context!, 
-      builder: (context)=>DeliveryOrdenesDetallePage(pedido: pedido));
+      builder: (context)=>ClienteOrdenesDetallePage(pedido: pedido));
     if (resultado != null) {
       isUpdate = true;
     }

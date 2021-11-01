@@ -63,6 +63,11 @@ class ClienteOrdenesCrearController {
   }
 
   void goToOrderDireccionPage(){
+    if(selectedProducts.length > 0) {
           Navigator.pushNamed(context!,'clientes/ordenes/direccion');
+    }else{
+    MySnackbar.show(context,'No tiene productos en la bolsa');
+    }
+
   }
 }

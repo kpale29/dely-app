@@ -29,6 +29,15 @@ class Usuario {
       this.roles,
     });
 
+    List<Usuario> fromJsonList( List<dynamic> jsonList) {
+    List<Usuario> toList = [];
+      for (var element in jsonList) {
+        Usuario usuario =  Usuario.fromJson(element);  
+        toList.add(usuario);
+      }
+      return toList;
+    }
+
 
     factory Usuario.fromJson(Map<String, dynamic> json) => Usuario(
         id: json["id"] is int ? json["id"].toString() : json["id"] ,

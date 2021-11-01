@@ -32,14 +32,27 @@ module.exports = {
                 menssage: `Error al consultar: ${error}`
             })
         } 
+    },
 
+    async getRepartidores(req,res,next) {
+        try {
+            const data = await Usuario.buscarRepartidores()
+            console.log(`Repartidores: ${data}`);
+            return res.status(201).json(data)
+        } catch (error) {
+            console.log(`Error en consulta: ${error}`);
+            return res.status(501).json({
+                success: false,
+                menssage: `Error al consultar: ${error}`
+            })
+        } 
     },
 
     async create(req,res,next) {
         try {
             const user = req.body; 
             const data = await Usuario.create(user);
-            const id = data[0]['LAST_INSERT_ID()']
+            const id = data.insertId
             await Rol.crear(id, 1);
             return res.status(201).json({
                 success: true,
@@ -53,6 +66,72 @@ module.exports = {
                 message: 'Hubo un error con el registro del usuario',
                 error: error
             });
+        }
+    },
+
+    async updateConPassword(req,res,next) {
+        try {
+            const usuario = req.body;
+            const restauranteCheck = req.params.restaurante;
+            const repartidorCheck = req.params.repartidor;
+            if(restauranteCheck == 'true'){
+                Usuario.updateRestauranteTrue(usuario.id)
+            }else{
+                Usuario.updateRestauranteFalse(usuario.id)
+            }
+            if(repartidorCheck == 'true'){
+                Usuario.updateRepartidorTrue(usuario.id)
+            }else{
+                Usuario.updateRepartidorFalse(usuario.id)
+            }
+            await Usuario.actualizarConPassword(usuario).then(
+            async (data)  =>{ 
+            return res.status(201).json({
+                success: true,
+                message: `El usuario ${usuario.id} se ha actualizado correctamente`,
+                data: usuario.id
+            })
+            });
+        }catch (error) {
+            console.log(`Error: ${error.message}`);
+            return res.status(501).json({
+                success: false,
+                message: 'Hubo un error al actualizar el pedido',
+                error: error
+            })
+        }
+    },
+
+    async updateSinPassword(req,res,next) {
+        try {
+            const usuario = req.body;
+            const restauranteCheck = req.params.restaurante;
+            const repartidorCheck = req.params.repartidor;
+            if(restauranteCheck === 'true'){
+                Usuario.updateRestauranteTrue(usuario.id)
+            }else{
+                Usuario.updateRestauranteFalse(usuario.id)
+            }
+            if(repartidorCheck === 'true'){
+                Usuario.updateRepartidorTrue(usuario.id)
+            }else{
+                Usuario.updateRepartidorFalse(usuario.id)
+            }
+            await Usuario.actualizarSinPassword(usuario).then(
+            async (data)  =>{ 
+            return res.status(201).json({
+                success: true,
+                message: `El usuario ${usuario.id} se ha actualizado correctamente`,
+                data: usuario.id
+            })
+            });
+        }catch (error) {
+            console.log(`Error: ${error.message}`);
+            return res.status(501).json({
+                success: false,
+                message: 'Hubo un error al actualizar el pedido',
+                error: error
+            })
         }
     },
 

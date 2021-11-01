@@ -48,8 +48,15 @@ class ClienteOrdenesDireccionController {
 
     if (responseApi != null){
       print('respuesta: ${responseApi}');
+      
       MySnackbar.show(context, responseApi.message.toString());
-
+      if(responseApi.succes){
+        _sharedPref.remove('order');
+        Future.delayed(
+        const Duration(seconds: 2),
+        () => Navigator.pushNamedAndRemoveUntil(context, 'clientes/productos/lista', (route) => false)
+        );
+      }
     }
 
 

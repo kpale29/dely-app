@@ -85,42 +85,42 @@ class _ClienteProductosListaPageState extends State<ClienteProductosListaPage> {
   }
 
   Widget _cardProducto( Producto producto)  { 
-    int rnd = 1 + Random().nextInt(10);
-    int food = 1 + Random().nextInt(10);
+    // int rnd = 1 + Random().nextInt(10);
+    // int food = 1 + Random().nextInt(10);
 
-    String comida = 'burger';
-    switch (food){
-      case 1: 
-        comida = 'biryani';
-      break; 
-      case 2: 
-        comida = 'burger';
-      break; 
-      case 3: 
-        comida = 'butter-chicken';
-      break; 
-      case 4: 
-        comida = 'dessert';
-      break; 
-      case 5: 
-        comida = 'dosa';
-      break; 
-      case 6: 
-        comida = 'idly';
-      break; 
-      case 7: 
-        comida = 'pasta';
-      break; 
-      case 8: 
-        comida = 'pizza';
-      break; 
-      case 9: 
-        comida = 'rice';
-      break; 
-      case 10: 
-        comida = 'samosa';
-      break; 
-    }
+    // String comida = 'burger';
+    // switch (food){
+    //   case 1: 
+    //     comida = 'biryani';
+    //   break; 
+    //   case 2: 
+    //     comida = 'burger';
+    //   break; 
+    //   case 3: 
+    //     comida = 'butter-chicken';
+    //   break; 
+    //   case 4: 
+    //     comida = 'dessert';
+    //   break; 
+    //   case 5: 
+    //     comida = 'dosa';
+    //   break; 
+    //   case 6: 
+    //     comida = 'idly';
+    //   break; 
+    //   case 7: 
+    //     comida = 'pasta';
+    //   break; 
+    //   case 8: 
+    //     comida = 'pizza';
+    //   break; 
+    //   case 9: 
+    //     comida = 'rice';
+    //   break; 
+    //   case 10: 
+    //     comida = 'samosa';
+    //   break; 
+    // }
 
     return GestureDetector(
       onTap: (){ _con.openBottomSheet(producto);},
@@ -150,7 +150,8 @@ class _ClienteProductosListaPageState extends State<ClienteProductosListaPage> {
                   padding: EdgeInsets.all(20),
                   height: 150,
                   width: MediaQuery.of(context).size.width * 0.45,
-                  child:  Image.network('https://foodish-api.herokuapp.com/images/${comida}/${comida}${rnd}.jpg',fit: BoxFit.cover),
+                  // child:  Image.network('https://foodish-api.herokuapp.com/images/${comida}/${comida}${rnd}.jpg',fit: BoxFit.cover), 
+                  child:  Image.network('http://lorempixel.com/400/400/food/',fit: BoxFit.cover), 
                 ),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal:20),
@@ -260,10 +261,12 @@ class _ClienteProductosListaPageState extends State<ClienteProductosListaPage> {
           ])
         ),
         ListTile(
+          onTap: _con.goToPerfil,
           title: Text('Editar perfil'),
           trailing: Icon(Icons.edit_outlined,),
         ),
         ListTile(
+          onTap: _con.goToOrdenesList,
           title: Text('Mis Pedidos'),
           trailing: Icon(Icons.shopping_cart_outlined,),
         ),

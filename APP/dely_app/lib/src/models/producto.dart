@@ -3,6 +3,16 @@ import 'dart:convert';
 
 Producto productoFromJson(String str) => Producto.fromJson(json.decode(str));
 
+List<Producto> printFromJson(String str){
+var ordenes = jsonDecode(str);
+List<Producto> toList = [];
+      for (var element in ordenes) {
+        Producto categoria =  Producto.fromJson(element);  
+        toList.add(categoria);
+      }
+      return toList; 
+}
+
 String productoToJson(Producto data) => json.encode(data.toJson());
 
 class Producto {
@@ -37,7 +47,7 @@ class Producto {
         id: json["id"] is int ? json["id"].toString() : json["id"],
         nombre: json["nombre"],
         descripcion: json["descripcion"],
-        precio:  json['price'] is String ? double.parse(json["precio"]) : isInteger(json["precio"]) ? json["precio"].toDouble() : json["precio"],
+        precio:  json['precio'] is String ? double.parse(json["precio"]) : isInteger(json["precio"]) ? json["precio"].toDouble() : json["precio"],
         idCategoria: json["id_categoria"] is String ? int.parse(json["id_categoria"]) : json["id_categoria"],
         cantidad: json["cantidad"] 
     );

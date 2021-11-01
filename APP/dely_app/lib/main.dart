@@ -1,8 +1,10 @@
 import 'package:dely_app/src/pages/cliente/ordenes/crear/cliente_ordenes_crear_page.dart';
 import 'package:dely_app/src/pages/cliente/ordenes/direccion/cliente_ordenes_direccion_page.dart';
+import 'package:dely_app/src/pages/cliente/ordenes/lista/cliente_ordenes_lista_page.dart';
 import 'package:dely_app/src/pages/cliente/productos/lista/cliente_productos_lista_page.dart';
 import 'package:dely_app/src/pages/delivery/ordenes/lista/delivery_ordenes_lista_page.dart';
 import 'package:dely_app/src/pages/login/login_page.dart';
+import 'package:dely_app/src/pages/register/edit/register_edit_page.dart';
 import 'package:dely_app/src/pages/register/register_page.dart';
 import 'package:dely_app/src/pages/restaurante/categorias/crear/restaurante_categorias_crear_page.dart';
 import 'package:dely_app/src/pages/restaurante/ordenes/lista/restaurante_ordenes_lista_page.dart';
@@ -31,9 +33,11 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'login': (BuildContext context) => const LoginPage(),
         'register' : (BuildContext context) => const RegisterPage(),
+        'register/edit' : (BuildContext context) =>  RegisterEditPage(),
         'clientes/productos/lista' : (BuildContext context) => ClienteProductosListaPage(),
         'clientes/ordenes/crear' : (BuildContext context) => ClientesOrdenesCrearPage(),
         'clientes/ordenes/direccion' : (BuildContext context) => ClientesOrdenesDireccionPage(),
+        'clientes/ordenes/lista' : (BuildContext context) => ClienteOrdenesListaPage(),
         'restaurante/ordenes/lista' : (BuildContext context) => RestauranteOrdenesListaPage(),
         'restaurante/categorias/crear' : (BuildContext context) => RestauranteCategoriasCrearPage(),
         'restaurante/productos/crear' : (BuildContext context) => RestauranteProductosCrearPage(),

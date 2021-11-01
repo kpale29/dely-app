@@ -4,6 +4,7 @@ import 'package:dely_app/src/models/usuario.dart';
 import 'package:dely_app/src/pages/cliente/productos/detalle/cliente_producto_detalle_page.dart';
 import 'package:dely_app/src/pages/cliente/productos/lista/cliente_productos_lista_page.dart';
 import 'package:dely_app/src/provider/categorias_provider.dart';
+import 'package:dely_app/src/provider/pedidos_provider.dart';
 import 'package:dely_app/src/provider/productos_provider.dart';
 import 'package:dely_app/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +17,15 @@ class ClienteProductosListaController {
   Function? refresh; 
 
   List<Categoria> categorias = [];
-  CategoriasProvider _categoriasProvider =  CategoriasProvider();
-  ProductosProvider _productosProvider =  ProductosProvider();
+  final CategoriasProvider _categoriasProvider =  CategoriasProvider();
+  final ProductosProvider _productosProvider =  ProductosProvider();
 
   Future? init(BuildContext? context,Function refresh) async{
     this.context = context;
     this.refresh = refresh;
+    if((await _sharedPref.read('user')) != null ){
     user = Usuario.fromJson(await _sharedPref.read('user'));
+    }
     _categoriasProvider.init(context!);
     getCategorias();
     refresh();
@@ -57,6 +60,14 @@ class ClienteProductosListaController {
       }
       }
     }
+  }
+
+  void goToOrdenesList(){
+          Navigator.pushNamed(context!,'clientes/ordenes/lista');
+  }
+
+  void goToPerfil(){
+          Navigator.pushNamed(context!,'register/edit');
   }
 
   void goToOrderCreatePage(){

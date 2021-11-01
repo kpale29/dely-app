@@ -1,19 +1,21 @@
 import 'package:dely_app/src/models/pedido.dart';
+import 'package:dely_app/src/pages/cliente/ordenes/lista/cliente_ordenes_lista_controller.dart';
+import 'package:dely_app/src/pages/delivery/ordenes/lista/delivery_ordenes_lista_controller.dart';
 import 'package:dely_app/src/pages/restaurante/ordenes/lista/restaurante_ordenes_lista_controller.dart';
 import 'package:dely_app/src/widgets/no_data_widget.dart';
 import 'package:dely_app/src/widgets/no_data_widget_pedidos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-class RestauranteOrdenesListaPage extends StatefulWidget {
-  RestauranteOrdenesListaPage({Key? key}) : super(key: key);
+class ClienteOrdenesListaPage extends StatefulWidget {
+  ClienteOrdenesListaPage({Key? key}) : super(key: key);
 
   @override
-  _RestauranteOrdenesListaPageState createState() => _RestauranteOrdenesListaPageState();
+  _ClienteOrdenesListaPageState createState() => _ClienteOrdenesListaPageState();
 }
 
-class _RestauranteOrdenesListaPageState extends State<RestauranteOrdenesListaPage> {
-  RestauranteOrdenesListaController _con = RestauranteOrdenesListaController();
+class _ClienteOrdenesListaPageState extends State<ClienteOrdenesListaPage> {
+  ClienteOrdenesListaController _con = ClienteOrdenesListaController();
 
   @override
   void initState() {
@@ -30,7 +32,7 @@ class _RestauranteOrdenesListaPageState extends State<RestauranteOrdenesListaPag
     child: Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text('Restaurante'),
+        title: Text('Mis Pedidos'),
         bottom: TabBar(
             isScrollable: true,
             tabs: List<Widget>.generate(_con.estado.length, (index) {
@@ -40,7 +42,7 @@ class _RestauranteOrdenesListaPageState extends State<RestauranteOrdenesListaPag
             })
         ),
       ),
-      drawer: _drawer(),
+      // drawer: _drawer(),
       body: TabBarView(children: _con.estado.map((String estado) {
         // return _cardPedido(null);
           return FutureBuilder(
@@ -119,13 +121,21 @@ class _RestauranteOrdenesListaPageState extends State<RestauranteOrdenesListaPag
                     Container(
                       alignment:  Alignment.centerLeft,
                       margin: EdgeInsets.symmetric(vertical:5),
-                      child: Text('Cliente: ${pedido.cliente!.nombre ?? ''} ${pedido.cliente!.apellido ?? ''}',
+                      child: pedido.repartidor != null ? Text('Repartidor: ${pedido.repartidor!.nombre ?? ''} ${pedido.repartidor!.apellido ?? ''}',
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
+                      ) 
+                      :         
+                        Text('Repartidor: pendientes',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
                       ),
+                      ),
+                      
                     ),
                     Container(
                       alignment:  Alignment.centerLeft,
@@ -149,72 +159,7 @@ class _RestauranteOrdenesListaPageState extends State<RestauranteOrdenesListaPag
     );
   }
 
-  Widget _drawer(){ 
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-        DrawerHeader(
-          decoration:BoxDecoration(color: Colors.green),
-          child: Column( 
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children:[
-            Text('${_con.user?.nombre ?? ''} ${_con.user?.apellido ?? ''}',
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.white, 
-              fontWeight: FontWeight.bold
-            ),
-            maxLines: 1,),
-            Text('${_con.user?.correo ?? ''}',
-            style: TextStyle(
-              fontSize: 13,
-              color: Colors.white, 
-              fontWeight: FontWeight.bold, 
-              fontStyle: FontStyle.italic
-            ),
-            maxLines: 1,),
-            Text('${_con.user?.telefono ?? ''}',
-            style: TextStyle(
-              fontSize: 13,
-              color: Colors.white, 
-              fontWeight: FontWeight.bold, 
-              fontStyle: FontStyle.italic
-            ),
-            maxLines: 1,),
-            SizedBox(height: 10,),
-            Icon(Icons.account_circle, color: Colors.white,size: 70),
-          ])
-        ),
-        ListTile(
-          onTap: _con.goToPerfil,
-          title: Text('Editar perfil'),
-          trailing: Icon(Icons.edit_outlined,),
-        ),
-        ListTile(
-          onTap: _con.goToCategoriasCrear,
-          title: Text('Crear Categoria'),
-          trailing: Icon(Icons.list_alt,),
-        ),
-        ListTile(
-          onTap: _con.goToProductosCrear,
-          title: Text('Crear Producto'),
-          trailing: Icon(Icons.local_pizza,),
-        ),
-        ListTile(
-          onTap: _con.goToPage,
-          title: Text('Seleccionar rol'),
-          trailing: Icon(Icons.person_outline,),
-        ),
-        ListTile(
-          onTap: _con.logout,
-          title: Text('Cerrar sesion'),
-          trailing: Icon(Icons.power_settings_new,),
-        )
-      ],
-      )
-    );
-  }
+  
   void Refresh()=> setState(() {});
 
 }
