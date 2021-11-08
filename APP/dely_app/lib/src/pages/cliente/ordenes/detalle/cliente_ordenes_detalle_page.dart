@@ -49,7 +49,7 @@ class _ClienteOrdenesDetallePageState extends State<ClienteOrdenesDetallePage> {
         _TextClient(),
         _TextDireccion(), 
         _textTotalPrice(),
-        _nextButton()
+        // _nextButton()
       ],)
       ),
       body:
